@@ -1,16 +1,19 @@
 "use client"
 import 'react-toastify/dist/ReactToastify.css';
 import ChatUI from "./components/Chat/ChatUI";
-import { MyContextProvider } from './context/MyContext';
+import { AuthProvider } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 
 export default function Home() {
-  
+
   return (
     <>
-    <MyContextProvider>
-      <ChatUI />
-    </MyContextProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <ChatUI />
+        </AuthProvider>
+      </ThemeProvider>
     </>
   )
 }

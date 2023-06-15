@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SideBar from './SideBar'
+import { ThemeContext } from '@/app/context/ThemeContext'
+
 
 
 const ChatPage = () => {
+  const {theme} = useContext(ThemeContext);
   return (
     <>
   {/* component */}
-  <div className="flex h-screen antialiased text-gray-800">
+  <div className={`flex h-screen bg-black antialiased text-${theme.text}`}>
   <div className="flex flex-row h-full w-full overflow-x-hidden">
-    <div className="flex flex-col py-8 pl-6 pr-2 w-64 bg-white flex-shrink-0">
+    <div className={`flex flex-col py-8 pl-6 pr-2 w-64 bg-${theme.bg} flex-shrink-0`}>
       <div className="flex flex-row items-center justify-center h-12 w-full">
         <div className="flex items-center justify-center rounded-full text-indigo-700 bg-indigo-500 h-10 w-10">
           
@@ -20,18 +23,18 @@ const ChatPage = () => {
       <div className="flex flex-col mt-8">
         <div className="flex flex-row items-center justify-between text-xs">
           <span className="font-bold">Active Conversations</span>
-          <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">
+          <span className="flex items-center justify-center text-black bg-gray-300 h-4 w-4 rounded-full">
             4
           </span>
         </div>
         <div className="flex flex-col space-y-1 mt-4 -mx-2 h-64 overflow-y-auto">
-          <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
+          <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
             <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
               H
             </div>
             <div className="ml-2 text-sm font-semibold">Henry Boyd</div>
           </button>
-          <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
+          <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
             <div className="flex items-center justify-center h-8 w-8 bg-gray-200 rounded-full">
               M
             </div>
@@ -40,19 +43,19 @@ const ChatPage = () => {
               2
             </div>
           </button>
-          <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
+          <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
             <div className="flex items-center justify-center h-8 w-8 bg-orange-200 rounded-full">
               P
             </div>
             <div className="ml-2 text-sm font-semibold">Philip Tucker</div>
           </button>
-          <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
+          <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
             <div className="flex items-center justify-center h-8 w-8 bg-pink-200 rounded-full">
               C
             </div>
             <div className="ml-2 text-sm font-semibold">Christine Reid</div>
           </button>
-          <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
+          <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
             <div className="flex items-center justify-center h-8 w-8 bg-purple-200 rounded-full">
               J
             </div>
@@ -61,12 +64,12 @@ const ChatPage = () => {
         </div>
         <div className="flex flex-row items-center justify-between text-xs mt-6">
           <span className="font-bold">Archived</span>
-          <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">
+          <span className="flex items-center justify-center bg-gray-300 text-black h-4 w-4 rounded-full">
             7
           </span>
         </div>
         <div className="flex flex-col space-y-1 mt-4 -mx-2">
-          <button className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
+          <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
             <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
               H
             </div>
@@ -75,8 +78,8 @@ const ChatPage = () => {
         </div>
       </div>
     </div>
-    <div className="flex flex-col flex-auto h-full p-6">
-      <div className="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4">
+    <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
+      <div className={`flex flex-col flex-auto bg-${theme.bg} flex-shrink-0 rounded-2xl h-full p-4`}>
         <div className="flex flex-col h-full overflow-x-auto mb-4">
           <div className="flex flex-col h-full">
             <div className="grid grid-cols-12 gap-y-2">
@@ -85,7 +88,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                  <div className={`relative ml-3 text-sm bg-${theme.bg} py-2 px-4 shadow rounded-xl`}>
                     <div>Hey How are you today?</div>
                   </div>
                 </div>
@@ -95,7 +98,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                  <div className={`relative ml-3 text-sm bg-${theme.bg} py-2 px-4 shadow rounded-xl`}>
                     <div>
                       Lorem ipsum dolor sit amet, consectetur adipisicing
                       elit. Vel ipsa commodi illum saepe numquam maxime
@@ -109,7 +112,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                  <div className="relative mr-3 text-sm bg-blue-500 py-2 px-4 shadow rounded-xl">
                     <div>I'm ok what about you?</div>
                   </div>
                 </div>
@@ -119,7 +122,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                  <div className="relative mr-3 text-sm bg-blue-500 py-2 px-4 shadow rounded-xl">
                     <div>
                       Lorem ipsum dolor sit, amet consectetur adipisicing. ?
                     </div>
@@ -131,7 +134,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                  <div className={`relative ml-3 text-sm bg-${theme.bg} py-2 px-4 shadow rounded-xl`}>
                     <div>Lorem ipsum dolor sit amet !</div>
                   </div>
                 </div>
@@ -141,7 +144,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                  <div className="relative mr-3 text-sm bg-blue-500 py-2 px-4 shadow rounded-xl">
                     <div>
                       Lorem ipsum dolor sit, amet consectetur adipisicing. ?
                     </div>
@@ -156,7 +159,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                  <div className={`relative ml-3 text-sm bg-${theme.bg} py-2 px-4 shadow rounded-xl`}>
                     <div>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Perspiciatis, in.
@@ -169,7 +172,7 @@ const ChatPage = () => {
                   <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
                     A
                   </div>
-                  <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                  <div className={`relative ml-3 text-sm bg-${theme.bg} py-2 px-4 shadow rounded-xl`}>
                     <div className="flex flex-row items-center">
                       <button className="flex items-center justify-center bg-indigo-600 hover:bg-indigo-800 rounded-full h-8 w-10">
                         <svg
@@ -233,7 +236,7 @@ const ChatPage = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4">
+        <div className={`flex flex-row items-center h-16 rounded-xl bg-${theme.bg} w-full px-4`}>
           <div>
             <button className="flex items-center justify-center text-gray-400 hover:text-gray-600">
               <svg
@@ -256,7 +259,7 @@ const ChatPage = () => {
             <div className="relative w-full">
               <input
                 type="text"
-                className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                className="flex w-full border text-black rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
               />
               <button className="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
                 <svg
@@ -277,7 +280,7 @@ const ChatPage = () => {
             </div>
           </div>
           <div className="ml-4">
-            <button className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0">
+            <button className={`flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0`}>
               <span>Send</span>
               <span className="ml-2">
                 <svg

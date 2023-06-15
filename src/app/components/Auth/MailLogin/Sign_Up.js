@@ -15,43 +15,34 @@ export const Sign_Up = () => {
 
     const signUpWithEmail = async (name, email, password) => {
         event.preventDefault();
-    
+
         if (name === '' || email === '' || password === '') {
             toast("Please fill all the fields");
         }
-        if(cnfPassword === password){
+        if (cnfPassword === password) {
             createUserWithEmailAndPassword(auth, email, password)
-            .then(async (res) => {
-                const user = res.user;
-                console.log(user);
-                await updateProfile(user, {
-                    displayName: name
-                });
-                await sendEmailVerification(user)
-                    .then(() => {
-                        console.log("sent");
-                        toast("Hooraayyyyy");
-                        router.push("/");
-                    })
-                    .catch((e)=>{
-                        console.log(e);
-                        toast(e.code);
+                .then(async (res) => {
+                    const user = res.user;
+                    console.log(user);
+                    await updateProfile(user, {
+                        displayName: name
                     });
-            })
-            .catch((error) => {
-                console.log(error.code);
-                toast(error.code);
-                if( error.code === "auth/email-already-in-use"){
-                    router.push("/login");
-                }
+                    router.push("/");
+                })
+                .catch((error) => {
+                    console.log(error.code);
+                    toast(error.code);
+                    if (error.code === "auth/email-already-in-use") {
+                        router.push("/login");
+                    }
 
-            });
+                });
         }
 
-        if(cnfPassword != password){
+        if (cnfPassword != password) {
             toast("Password doesn't Match")
         }
-        
+
     };
     return (
         <>
@@ -133,7 +124,7 @@ export const Sign_Up = () => {
                 className="inline-block w-full rounded bg-primary px-7 pb-2.5 pt-3 text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                 data-te-ripple-init=""
                 data-te-ripple-color="light"
-                onClick={(e) => {signUpWithEmail(name, email, password)}}
+                onClick={(e) => { signUpWithEmail(name, email, password) }}
             >
                 Sign Up
             </button>
