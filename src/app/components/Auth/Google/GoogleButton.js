@@ -3,8 +3,10 @@ import { signInWithPopup } from "firebase/auth";
 import { useRouter } from 'next/navigation'
 
 export const GoogleButton = () => {
+    const router = useRouter();
     const signInWithGoogle = async (e) => {
         event.preventDefault();
+       
         signInWithPopup(auth, provider)
             .then((res) => {
                 const user = res.user;
