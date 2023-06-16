@@ -1,45 +1,60 @@
 import { AuthContext } from '@/app/context/AuthContext'
 import { getConversation, getMessages, newMessages } from '@/app/service/api';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import ChatBody from './ChatBody';
 
 const ChattingPage = ({ theme }) => {
-    const { person,account } = useContext(AuthContext);
-    const [text,setText] = useState('');
-    const [conversation,setConversation] = useState({}); 
-    const [messages,setMessages] = useState([]);
-    const [messageFlag,setMessageFlag] = useState(false);
-    const sendText = async (e) =>{
+    const { person, account } = useContext(AuthContext);
+    const [text, setText] = useState('');
+    const [conversation, setConversation] = useState({});
+    const [messages, setMessages] = useState([]);
+    const [messageFlag, setMessageFlag] = useState(false);
+
+    const chatContainerRef = useRef(null);
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+
+
+    const scrollToBottom = () => {
+        if (chatContainerRef.current) {
+            const container = chatContainerRef.current;
+            container.scrollTop = container.scrollHeight;
+        }
+    };
+
+    const sendText = async (e) => {
         const code = e.keycode || e.which;
-        if(code===13 && text.trim() !== ''){
-            let message={
-                senderId:account.uid,
-                receiverId:person.uid,
-                conversationId:conversation._id,
-                type:'text',
+        if (code === 13 && text.trim() !== '') {
+            let message = {
+                senderId: account.uid,
+                receiverId: person.uid,
+                conversationId: conversation._id,
+                type: 'text',
                 text: text
             };
             await newMessages(message);
             setText('');
-            setMessageFlag(prev=> !prev);
+            setMessageFlag(prev => !prev);
         }
     }
 
-    useEffect(()=>{
-        const getConversationDetails = async () =>{
-            let data = await getConversation({senderId:account.uid,receiverId:person.uid});
+    useEffect(() => {
+        const getConversationDetails = async () => {
+            let data = await getConversation({ senderId: account.uid, receiverId: person.uid });
             setConversation(data);
         }
         getConversationDetails();
-    },[person.uid])
+    }, [person.uid])
 
-    useEffect(()=>{
-        const getMessageDetails = async () =>{
-            let data =  await getMessages(conversation._id);
+    useEffect(() => {
+        const getMessageDetails = async () => {
+            let data = await getMessages(conversation._id);
             setMessages(data);
         }
         conversation._id && getMessageDetails();
-    },[person.uid,conversation._id,messageFlag])
+    }, [person.uid, conversation._id, messageFlag])
 
     return (
         <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
@@ -77,13 +92,12 @@ const ChattingPage = ({ theme }) => {
                     </button>
                 </div>
                 {/* Chatting */}
-                <div className="flex flex-col h-full overflow-x-auto mb-4">
+                <div  ref={chatContainerRef} className="flex flex-col h-full overflow-x-auto mb-4">
                     <div className="flex flex-col h-full">
                         <div className="grid grid-cols-12 gap-y-2">
-                            {messages && messages.map((message)=>(
-                                <ChatBody key={message._id} theme={theme} message={message} account={account}/>
+                            {messages && messages.map((message) => (
+                                <ChatBody key={message._id} theme={theme} message={message} account={account} />
                             ))}
-                            
                         </div>
                     </div>
                 </div>
@@ -111,10 +125,10 @@ const ChattingPage = ({ theme }) => {
                         <div className="relative w-full">
                             <input
                                 type="text"
-                                onChange={(e)=>{
+                                onChange={(e) => {
                                     setText(e.target.value)
                                 }}
-                                onKeyPress={(e)=>{sendText(e)}}
+                                onKeyPress={(e) => { sendText(e) }}
                                 value={text}
                                 placeholder='Send Message'
                                 className="flex w-full border text-black rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
