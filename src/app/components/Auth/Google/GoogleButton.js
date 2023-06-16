@@ -10,7 +10,6 @@ export const GoogleButton = () => {
         signInWithPopup(auth, provider)
             .then((res) => {
                 const user = res.user;
-                console.log(user);
                 router.push('/');
             })
             .catch((error) => {

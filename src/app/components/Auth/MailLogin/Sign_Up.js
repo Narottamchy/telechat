@@ -23,7 +23,6 @@ export const Sign_Up = () => {
             createUserWithEmailAndPassword(auth, email, password)
                 .then(async (res) => {
                     const user = res.user;
-                    console.log(user);
                     await updateProfile(user, {
                         displayName: name
                     });

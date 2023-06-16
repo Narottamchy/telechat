@@ -16,7 +16,6 @@ const ChatUI = () => {
     auth.onAuthStateChanged((user) => {
       setTimeout(()=>{
         setAccount(user);
-        console.log(user);
         addUser(user);
         setLoading(false);
       },2000);

@@ -1,18 +1,17 @@
 import React, { useEffect, useContext, useState } from 'react'
-import SideBar from './SideBar'
+import SideBar from './Sidebar/SideBar'
 import { ThemeContext } from '@/app/context/ThemeContext'
 import { getUsers } from '@/app/service/api'
-import Chats from './Chats'
-import ChattingPage from './ChattingPage'
-import EmptyChat from './EmptyChat'
+import Chats from './Sidebar/Chats'
+import ChattingPage from './ChatBody/ChattingPage'
+import EmptyChat from './ChatBody/EmptyChat'
 import { AuthContext } from '@/app/context/AuthContext'
-
-
 
 const ChatPage = () => {
   const [users, setUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const { theme } = useContext(ThemeContext);
-  const {person} = useContext(AuthContext);
+  const { person } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +20,11 @@ const ChatPage = () => {
     }
     fetchData();
   }, []);
+
+  // Filter users based on search query
+  const filteredUsers = users.filter(user =>
+    user.displayName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <>
@@ -35,7 +39,17 @@ const ChatPage = () => {
               <div className="ml-2 font-bold text-2xl">TeleChat</div>
               <SideBar />
             </div>
-
+            {/* Search box */}
+            <div className="flex justify-center mt-4 mr-2">
+              <input
+                type="text"
+                placeholder="Search"
+                className={`p-2 rounded-lg bg-${theme.bg} text-${theme.text} border border-${theme.border}`}
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+              />
+            </div>
+            {/*Conversations */}
             <div className="flex flex-col mt-8">
               <div className="flex flex-row items-center justify-between text-xs">
                 <span className="font-bold">Active Conversations</span>
@@ -43,28 +57,16 @@ const ChatPage = () => {
                   {users.length}
                 </span>
               </div>
+              {/*Users */}
               <div className="flex flex-col space-y-1 mt-4 -mx-2 h-64 overflow-y-auto">
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                   <Chats key={user._id} user={user} />
                 ))}
               </div>
-              <div className="flex flex-row items-center justify-between text-xs mt-6">
-                <span className="font-bold">Archived</span>
-                <span className="flex items-center justify-center bg-gray-300 text-black h-4 w-4 rounded-full">
-                  7
-                </span>
-              </div>
-              <div className="flex flex-col space-y-1 mt-4 -mx-2">
-                <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
-                  <div className="flex items-center justify-center h-8 w-8 bg-indigo-200 rounded-full">
-                    H
-                  </div>
-                  <div className="ml-2 text-sm font-semibold">Henry Boyd</div>
-                </button>
-              </div>
             </div>
           </div>
-          {Object.keys(person).length ? <ChattingPage theme={theme}/> : <EmptyChat theme={theme}/>}
+          {/*Chatting page */}
+          {Object.keys(person).length ? <ChattingPage theme={theme} /> : <EmptyChat theme={theme} />}
         </div>
       </div>
     </>

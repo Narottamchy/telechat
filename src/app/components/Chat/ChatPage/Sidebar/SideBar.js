@@ -1,6 +1,6 @@
 import { AuthContext } from "@/app/context/AuthContext";
 import { useState, useContext } from "react";
-import { auth } from "../../firebase/firebase";
+import { auth } from "../../../firebase/firebase";
 import { sendEmailVerification, signOut } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import { ThemeContext } from "@/app/context/ThemeContext";
@@ -15,7 +15,6 @@ const Sidebar = () => {
   const switchTheme= () =>{
     if(theme.bg === "white") {setTheme({bg:"black",text:"white"})} 
     else{setTheme({bg:"white",text:"black"});}
-    console.log(theme);
   }
 
   const LogOut = async () => {
@@ -29,7 +28,6 @@ const Sidebar = () => {
   const sendMail = async () => {
     await sendEmailVerification(account.account)
       .then(() => {
-        console.log("sent");
         toast("Please Check Your Mail");
       })
       .catch((e) => {

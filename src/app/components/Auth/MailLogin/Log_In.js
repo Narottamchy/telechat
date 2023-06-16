@@ -19,7 +19,6 @@ export const Log_In = ({ }) => {
         signInWithEmailAndPassword(auth, email, password)
             .then((res) => {
                 const user = res.user;
-                console.log(user);
                 router.push('/');
 
             })
