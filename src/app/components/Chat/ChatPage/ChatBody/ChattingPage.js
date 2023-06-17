@@ -114,7 +114,7 @@ const ChattingPage = ({ theme }) => {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-lg font-bold">{person.displayName}</span>
-                            <span className="text-gray-500">{activeUsers?.find(user => user.uid === person.uid) ? <>{isTyping ? 'Typing' : 'Online'}</> : 'Offline'}</span>
+                            <span className="text-gray-500">{activeUsers?.find(user => user.uid === person.uid) ? <>{isTyping ? 'Typing...' : 'Online'}</> : 'Offline'}</span>
                         </div>
                     </div>
                     <button className="text-gray-400 hover:text-gray-600">
