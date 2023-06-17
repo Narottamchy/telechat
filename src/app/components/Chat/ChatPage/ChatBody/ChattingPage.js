@@ -11,8 +11,19 @@ const ChattingPage = ({ theme }) => {
     const [incomingMessage, setIncomingMessage] = useState(null);
     const [conversation, setConversation] = useState({});
     const [messages, setMessages] = useState([]);
+    const [isTyping, setIsTyping] = useState(false);
 
     const chatContainerRef = useRef(null);
+    
+
+    const handleTyping = () => {
+        socket.current.emit('typing', { isTyping: true });
+      };
+      
+      const handleStopTyping = () => {
+        socket.current.emit('typing', { isTyping: false });
+      };
+      
 
     useEffect(() => {
         scrollToBottom();
@@ -57,6 +68,15 @@ const ChattingPage = ({ theme }) => {
         
     }, [incomingMessage, conversation]);
 
+
+    useEffect(() => {
+        socket.current.on('typing', (data) => {
+          setIsTyping(data.isTyping);
+        });
+      }, []);
+      
+      
+
     const receiverId = conversation?.members?.find(member => member !== account.uid);
 
     const sendText = async (e) => {
@@ -76,6 +96,8 @@ const ChattingPage = ({ theme }) => {
         }
     }
 
+      
+
     return (
         <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
             <div className={`flex flex-col flex-auto bg-${theme.bg} flex-shrink-0 rounded-2xl h-full p-4`}>
@@ -91,7 +113,7 @@ const ChattingPage = ({ theme }) => {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-lg font-bold">{person.displayName}</span>
-                            <span className="text-gray-500">{activeUsers?.find(user=>user.uid===person.uid)?'Online':'Offline'}</span>
+                            <span className="text-gray-500">{activeUsers?.find(user=>user.uid===person.uid)?<>{isTyping?'Typing':'Online'}</>:'Offline'}</span>
                         </div>
                     </div>
                     <button className="text-gray-400 hover:text-gray-600">
@@ -146,8 +168,10 @@ const ChattingPage = ({ theme }) => {
                             <input
                                 type="text"
                                 onChange={(e) => {
-                                    setText(e.target.value)
+                                    setText(e.target.value);
+                                    handleTyping();
                                 }}
+                                onBlur={handleStopTyping}
                                 onKeyPress={(e) => { sendText(e) }}
                                 value={text}
                                 placeholder='Send Message'

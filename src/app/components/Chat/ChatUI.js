@@ -18,7 +18,7 @@ const ChatUI = () => {
         setAccount(user);
         addUser(user);
         setLoading(false);
-      },2000);
+      },1000);
       
     });
   }, []);
