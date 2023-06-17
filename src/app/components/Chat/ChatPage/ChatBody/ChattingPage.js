@@ -2,13 +2,15 @@ import { AuthContext } from '@/app/context/AuthContext'
 import { getConversation, getMessages, newMessages } from '@/app/service/api';
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import ChatBody from './ChatBody';
+import { io } from 'socket.io-client';
+
 
 const ChattingPage = ({ theme }) => {
-    const { person, account } = useContext(AuthContext);
+    const { person, account, activeUsers, socket, newMessageFlag, setNewMessageFlag } = useContext(AuthContext);
     const [text, setText] = useState('');
+    const [incomingMessage, setIncomingMessage] = useState(null);
     const [conversation, setConversation] = useState({});
     const [messages, setMessages] = useState([]);
-    const [messageFlag, setMessageFlag] = useState(false);
 
     const chatContainerRef = useRef(null);
 
@@ -24,21 +26,14 @@ const ChattingPage = ({ theme }) => {
         }
     };
 
-    const sendText = async (e) => {
-        const code = e.keycode || e.which;
-        if (code === 13 && text.trim() !== '') {
-            let message = {
-                senderId: account.uid,
-                receiverId: person.uid,
-                conversationId: conversation._id,
-                type: 'text',
-                text: text
-            };
-            await newMessages(message);
-            setText('');
-            setMessageFlag(prev => !prev);
-        }
-    }
+    useEffect(() => {
+        socket.current.on('getMessage', data => {
+            setIncomingMessage({
+                ...data,
+                createdAt: Date.now()
+            })
+        })
+    }, []);
 
     useEffect(() => {
         const getConversationDetails = async () => {
@@ -50,11 +45,36 @@ const ChattingPage = ({ theme }) => {
 
     useEffect(() => {
         const getMessageDetails = async () => {
-            let data = await getMessages(conversation._id);
+            let data = await getMessages(conversation?._id);
             setMessages(data);
         }
-        conversation._id && getMessageDetails();
-    }, [person.uid, conversation._id, messageFlag])
+        conversation?._id && getMessageDetails();
+    }, [person.uid, conversation?._id, newMessageFlag])
+
+    useEffect(() => {
+        incomingMessage && conversation?.members?.includes(incomingMessage.senderId) && 
+            setMessages((prev) => [...prev, incomingMessage]);
+        
+    }, [incomingMessage, conversation]);
+
+    const receiverId = conversation?.members?.find(member => member !== account.uid);
+
+    const sendText = async (e) => {
+        const code = e.keycode || e.which;
+        if (code === 13 && text.trim() !== '') {
+            let message = {
+                senderId: account.uid,
+                receiverId: receiverId,
+                conversationId: conversation?._id,
+                type: 'text',
+                text: text
+            };
+            socket.current.emit('sendMessage',message);
+            await newMessages(message);
+            setText('');
+            setNewMessageFlag(prev => !prev);
+        }
+    }
 
     return (
         <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
@@ -71,7 +91,7 @@ const ChattingPage = ({ theme }) => {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-lg font-bold">{person.displayName}</span>
-                            <span className="text-gray-500">Offline</span>
+                            <span className="text-gray-500">{activeUsers?.find(user=>user.uid===person.uid)?'Online':'Offline'}</span>
                         </div>
                     </div>
                     <button className="text-gray-400 hover:text-gray-600">

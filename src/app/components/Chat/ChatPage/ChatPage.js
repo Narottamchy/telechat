@@ -11,7 +11,7 @@ const ChatPage = () => {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const { theme } = useContext(ThemeContext);
-  const { person } = useContext(AuthContext);
+  const { person, account, socket, setActiveUsers} = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +20,13 @@ const ChatPage = () => {
     }
     fetchData();
   }, []);
+
+  useEffect(()=>{
+    socket.current.emit('addUsers',account);
+    socket.current.on('getUsers', users =>{
+      setActiveUsers(users);
+    })
+  },[account])
 
   // Filter users based on search query
   const filteredUsers = users.filter(user =>
