@@ -14,16 +14,17 @@ const ChattingPage = ({ theme }) => {
     const [isTyping, setIsTyping] = useState(false);
 
     const chatContainerRef = useRef(null);
-    
+    const typingTimeoutRef = useRef(null);
 
     const handleTyping = () => {
         socket.current.emit('typing', { isTyping: true });
-      };
-      
-      const handleStopTyping = () => {
-        socket.current.emit('typing', { isTyping: false });
-      };
-      
+        clearTimeout(typingTimeoutRef.current);
+        typingTimeoutRef.current = setTimeout(() => {
+            socket.current.emit('typing', { isTyping: false });
+        }, 1000);
+    };
+
+
 
     useEffect(() => {
         scrollToBottom();
@@ -63,19 +64,19 @@ const ChattingPage = ({ theme }) => {
     }, [person.uid, conversation?._id, newMessageFlag])
 
     useEffect(() => {
-        incomingMessage && conversation?.members?.includes(incomingMessage.senderId) && 
+        incomingMessage && conversation?.members?.includes(incomingMessage.senderId) &&
             setMessages((prev) => [...prev, incomingMessage]);
-        
+
     }, [incomingMessage, conversation]);
 
 
     useEffect(() => {
         socket.current.on('typing', (data) => {
-          setIsTyping(data.isTyping);
+            setIsTyping(data.isTyping);
         });
-      }, []);
-      
-      
+    }, []);
+
+
 
     const receiverId = conversation?.members?.find(member => member !== account.uid);
 
@@ -89,14 +90,14 @@ const ChattingPage = ({ theme }) => {
                 type: 'text',
                 text: text
             };
-            socket.current.emit('sendMessage',message);
+            socket.current.emit('sendMessage', message);
             await newMessages(message);
             setText('');
             setNewMessageFlag(prev => !prev);
         }
     }
 
-      
+
 
     return (
         <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
@@ -113,7 +114,7 @@ const ChattingPage = ({ theme }) => {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-lg font-bold">{person.displayName}</span>
-                            <span className="text-gray-500">{activeUsers?.find(user=>user.uid===person.uid)?<>{isTyping?'Typing':'Online'}</>:'Offline'}</span>
+                            <span className="text-gray-500">{activeUsers?.find(user => user.uid === person.uid) ? <>{isTyping ? 'Typing' : 'Online'}</> : 'Offline'}</span>
                         </div>
                     </div>
                     <button className="text-gray-400 hover:text-gray-600">
@@ -134,7 +135,7 @@ const ChattingPage = ({ theme }) => {
                     </button>
                 </div>
                 {/* Chatting */}
-                <div  ref={chatContainerRef} className="flex flex-col h-full overflow-x-auto mb-4">
+                <div ref={chatContainerRef} className="flex flex-col h-full overflow-x-auto mb-4">
                     <div className="flex flex-col h-full">
                         <div className="grid grid-cols-12 gap-y-2">
                             {messages && messages.map((message) => (
@@ -171,7 +172,6 @@ const ChattingPage = ({ theme }) => {
                                     setText(e.target.value);
                                     handleTyping();
                                 }}
-                                onBlur={handleStopTyping}
                                 onKeyPress={(e) => { sendText(e) }}
                                 value={text}
                                 placeholder='Send Message'
