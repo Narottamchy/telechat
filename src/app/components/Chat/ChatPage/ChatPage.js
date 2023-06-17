@@ -61,7 +61,7 @@ const ChatPage = () => {
               <div className="flex flex-row items-center justify-between text-xs">
                 <span className="font-bold">Active Conversations</span>
                 <span className="flex items-center justify-center text-black bg-gray-300 h-4 w-4 rounded-full">
-                  {users.length}
+                  {users.length - 1}
                 </span>
               </div>
               {/*Users */}
