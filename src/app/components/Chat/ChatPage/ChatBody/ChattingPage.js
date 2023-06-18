@@ -12,6 +12,7 @@ const ChattingPage = ({ theme }) => {
     const [conversation, setConversation] = useState({});
     const [messages, setMessages] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
+    const [sendingMessage, setSendingMessage] = useState(false);
 
     const chatContainerRef = useRef(null);
     const typingTimeoutRef = useRef(null);
@@ -83,6 +84,7 @@ const ChattingPage = ({ theme }) => {
     const sendText = async (e) => {
         const code = e.keycode || e.which;
         if (code === 13 && text.trim() !== '') {
+            setSendingMessage(true);
             let message = {
                 senderId: account.uid,
                 receiverId: receiverId,
@@ -94,8 +96,28 @@ const ChattingPage = ({ theme }) => {
             await newMessages(message);
             setText('');
             setNewMessageFlag(prev => !prev);
+            setSendingMessage(false);
         }
     }
+
+    const sendTextBtn = async () => {
+        if (text.trim() !== '') {
+          setSendingMessage(true);
+          let message = {
+            senderId: account.uid,
+            receiverId: receiverId,
+            conversationId: conversation?._id,
+            type: 'text',
+            text: text
+          };
+          socket.current.emit('sendMessage', message);
+          await newMessages(message);
+          setText('');
+          setNewMessageFlag(prev => !prev);
+          setSendingMessage(false);
+        }
+      };
+      
 
 
 
@@ -147,7 +169,8 @@ const ChattingPage = ({ theme }) => {
                         </div>
                     </div>
                     <div className="ml-4">
-                        <button className={`flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0`}>
+                        <button onClick={sendTextBtn} className={`flex h-10 items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0 ${
+    sendingMessage ? 'animate-pulse' : ''}`}>
                             <span>Send</span>
                             <span className="ml-2">
                                 <svg

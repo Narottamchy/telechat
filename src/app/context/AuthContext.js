@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
   const socket = useRef();
 
   useEffect(()=>{
-    socket.current = io(`${process.env.NEXT_PUBLIC_SOCKET_SERVER}`)
+    socket.current = io(`${process.env.NEXT_PUBLIC_SERVER}`)
   },[])
 
   return (
