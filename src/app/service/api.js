@@ -1,4 +1,6 @@
-const url = "http://localhost:8000";
+import dotenv from "dotenv";
+dotenv.config();
+const url = `${process.env.NEXT_PUBLIC_SERVER}`;
 
 export const addUser = async (data) =>{
     try{
