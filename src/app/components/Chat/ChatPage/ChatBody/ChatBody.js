@@ -9,7 +9,6 @@ const ChatBody = ({account, message, theme,person}) => {
         <img
             src={account.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
              alt="Logo"
-            onerror="this.src='error.jpg';this.onerror='';"
             className="h-full w-full"
           />
         </div>
