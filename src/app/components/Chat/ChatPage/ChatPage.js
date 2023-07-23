@@ -65,7 +65,7 @@ const ChatPage = () => {
                 </span>
               </div>
               {/*Users */}
-              <div className="flex flex-col space-y-1 mt-4 -mx-2 h-64 overflow-y-auto">
+              <div className="flex flex-col space-y-1 mt-4 -mx-2 h-full overflow-y-auto">
                 {filteredUsers.map((user) => (
                   <Chats key={user._id} user={user} />
                 ))}

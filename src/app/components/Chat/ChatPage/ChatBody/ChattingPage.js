@@ -3,7 +3,13 @@ import { getConversation, getMessages, newMessages } from '@/app/service/api';
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import ChatBody from './ChatBody';
 import { io } from 'socket.io-client';
+import './ChatSlider.css';
 
+const imageStyle = {
+    backgroundImage: `url("/bg-1.svg")`,
+    backgroundRepeat: "repeat-x",
+    backgroundSize: "auto 100%",
+  };
 
 const ChattingPage = ({ theme }) => {
     const { person, account, activeUsers, socket, newMessageFlag, setNewMessageFlag } = useContext(AuthContext);
@@ -123,10 +129,10 @@ const ChattingPage = ({ theme }) => {
 
     return (
         <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
-            <div className={`flex flex-col flex-auto bg-${theme.bg} flex-shrink-0 rounded-2xl h-full p-4`}>
+            <div style={imageStyle} className={`flex flex-col flex-auto bg-${theme.bg} flex-shrink-0 rounded-2xl h-full `}>
                 {/*Chat header*/}
-                <div className="flex items-center justify-between mb-2 pl-2">
-                    <div className="flex items-center space-x-2">
+                <div className={`flex bg-${theme.bg} items-center justify-between rounded-2xl p-2`}>
+                    <div className="flex  items-center space-x-2">
                         <div className="h-12 w-12 rounded-full bg-indigo-500 overflow-hidden flex-shrink-0">
                             <img
                                 src={person.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
@@ -141,7 +147,7 @@ const ChattingPage = ({ theme }) => {
                     </div>
                 </div>
                 {/* Chatting */}
-                <div ref={chatContainerRef} className="flex flex-col h-full overflow-x-auto mb-4">
+                <div  ref={chatContainerRef} className="flex flex-col h-full overflow-x-auto mb-4">
                     <div className="flex flex-col h-full">
                         <div className="grid grid-cols-12 gap-y-2">
                             {messages && messages.map((message) => (
