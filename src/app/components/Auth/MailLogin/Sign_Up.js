@@ -29,7 +29,7 @@ export const Sign_Up = () => {
                     router.push("/");
                 })
                 .catch((error) => {
-                    console.log(error.code);
+                    // // console.log(error.code);
                     toast(error.code);
                     if (error.code === "auth/email-already-in-use") {
                         router.push("/login");

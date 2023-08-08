@@ -23,7 +23,7 @@ export const Log_In = ({ }) => {
 
             })
             .catch((error) => {
-                console.log(error);
+                // // console.log(error);
                 toast(error.code);
             });
     };

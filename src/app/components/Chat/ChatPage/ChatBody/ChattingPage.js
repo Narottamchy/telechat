@@ -133,7 +133,9 @@ const ChattingPage = ({ theme }) => {
                 <div className={`flex bg-${theme.bg} items-center justify-between rounded-2xl p-2`}>
                     <div className="flex  items-center space-x-2">
                         <div className="h-12 w-12 rounded-full bg-indigo-500 overflow-hidden flex-shrink-0">
-                            <img
+                            <img 
+             height= "auto"
+             width={"100%"}
                                 src={person.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
                                  alt="Logo"
                                 className="h-full w-full"

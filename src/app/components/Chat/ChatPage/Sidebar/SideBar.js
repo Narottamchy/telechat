@@ -21,7 +21,7 @@ const Sidebar = () => {
     signOut(auth).then(() => {
       toast(userName + " has logout");
     }).catch((e) => {
-      console.log(e);
+      // console.log(e);
     });
   }
 
@@ -31,7 +31,7 @@ const Sidebar = () => {
         toast("Please Check Your Mail");
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
         toast(e.code);
       });
   }
@@ -99,7 +99,9 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col items-center bg-indigo-300 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
             <div className="h-20 w-20 rounded-full border overflow-hidden">
-              <img
+              <img 
+             height= "auto"
+             width={"100%"}
                 src={account.account.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
                  alt="Logo"
                 className="h-full w-full"
@@ -125,7 +127,9 @@ const Sidebar = () => {
               </button>
               {account.account.emailVerified ? <button className="flex flex-row items-center hover:text-black hover:bg-gray-100 rounded-xl p-2">
                 <div className="flex items-center justify-center h-8 w-8 rounded-full">
-                  <img
+                  <img 
+             height= "auto"
+             width={"100%"}
                     src="https://cdn-icons-png.flaticon.com/512/561/561249.png?w=740&t=st=1686581002~exp=1686581602~hmac=1a2a03eaf430967ab0cdc0ee23b98f2a6f2f7b93b4295d728a3b0810b628c7cf"
                      alt="Logo"
                     className="h-full w-full"
@@ -133,7 +137,9 @@ const Sidebar = () => {
                 </div>
                 <div className="ml-2 text-sm font-semibold">Mail</div>
                 <div className="flex items-center justify-center ml-auto text-xs text-white h-4 w-4 rounded leading-none">
-                  <img
+                  <img 
+             height= "auto"
+             width={"100%"}
                     src="https://cdn-icons-png.flaticon.com/512/969/969566.png?w=740&t=st=1686581102~exp=1686581702~hmac=ead42c4ef8d5d89314333942dbfd455bee41eeef0b17a68d0b0f68915503738d"
                      alt="Logo"
                     className="h-full w-full"
@@ -142,7 +148,9 @@ const Sidebar = () => {
 
               </button> : <button  onClick={sendMail} className="flex flex-row items-center hover:text-black hover:bg-gray-100 rounded-xl p-2">
                 <div className="flex items-center justify-center h-8 w-8 rounded-full">
-                  <img
+                  <img 
+             height= "auto"
+             width={"100%"}
                     src="https://cdn-icons-png.flaticon.com/512/561/561249.png?w=740&t=st=1686581002~exp=1686581602~hmac=1a2a03eaf430967ab0cdc0ee23b98f2a6f2f7b93b4295d728a3b0810b628c7cf"
                      alt="Logo"
                     className="h-full w-full"
@@ -153,7 +161,9 @@ const Sidebar = () => {
               
               <button onClick={switchTheme} className="flex flex-row items-center hover:text-black hover:bg-gray-100 rounded-xl p-2">
                 <div className="flex items-center justify-center h-8 w-8 rounded-full">
-                  <img
+                  <img 
+             height= "auto"
+             width={"100%"}
                     src="https://cdn-icons-png.flaticon.com/512/391/391097.png?w=740&t=st=1686581376~exp=1686581976~hmac=bd0acfc7f94884a71dcec9750e1be25448ec7d668c70f1d9c06920b7d9e2d05a"
                      alt="Logo"
                     className="h-full w-full"
@@ -163,7 +173,9 @@ const Sidebar = () => {
               </button>
               <button className="flex flex-row items-center hover:bg-gray-100 hover:text-black rounded-xl p-2">
                 <div className="flex items-center justify-center h-8 w-8 rounded-full">
-                  <img
+                  <img 
+             height= "auto"
+             width={"100%"}
                     src="https://cdn-icons-png.flaticon.com/512/300/300220.png?w=740&t=st=1686581870~exp=1686582470~hmac=307a03ba730b09b1f783be6f4c2404ac9f907bfe8b4f75c7430c4a5e50408d07"
                      alt="Logo"
                     className="h-full w-full"
@@ -173,7 +185,9 @@ const Sidebar = () => {
               </button>
               <button onClick={LogOut} className="flex flex-row items-center hover:text-black hover:bg-gray-100 rounded-xl p-2">
                 <div className="flex items-center justify-center h-8 w-8 rounded-full">
-                  <img
+                  <img 
+             height= "auto"
+             width={"100%"}
                     src="https://cdn-icons-png.flaticon.com/512/248/248930.png?w=740&t=st=1686580807~exp=1686581407~hmac=5a60067921ce3e1db02b370367c0d379b226b2b33b994e956187236c0fc2f62f"
                      alt="Logo"
                     className="h-full w-full"
