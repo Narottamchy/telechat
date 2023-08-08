@@ -38,7 +38,7 @@ const ChatPage = () => {
       {/* component */}
       <div className={`flex h-screen bg-black antialiased text-${theme.text}`}>
         <div className="flex flex-row h-full w-full overflow-x-hidden">
-          <div className={`flex flex-col py-8 pl-6 pr-2 w-64 bg-${theme.bg} flex-shrink-0`}>
+          <div className={`flex flex-col py-8 pl-6 pr-2 w-1/4 bg-${theme.bg} flex-shrink-0`}>
             <div className="flex flex-row items-center justify-center h-12 w-full">
               <div className="flex items-center justify-center rounded-full text-indigo-700 bg-indigo-500 h-10 w-10">
 
@@ -65,7 +65,7 @@ const ChatPage = () => {
                 </span>
               </div>
               {/*Users */}
-              <div className="flex flex-col space-y-1 mt-4 -mx-2 h-64 overflow-y-auto">
+              <div className="flex flex-col space-y-1 mt-4 -mx-2 h-full overflow-y-auto">
                 {filteredUsers.map((user) => (
                   <Chats key={user._id} user={user} />
                 ))}
