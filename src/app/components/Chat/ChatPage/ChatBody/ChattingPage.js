@@ -2,7 +2,6 @@ import { AuthContext } from '@/app/context/AuthContext'
 import { getConversation, getMessages, newMessages } from '@/app/service/api';
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import ChatBody from './ChatBody';
-import { io } from 'socket.io-client';
 import './ChatSlider.css';
 
 const imageStyle = {
@@ -128,8 +127,8 @@ const ChattingPage = ({ theme }) => {
 
 
     return (
-        <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
-            <div style={imageStyle} className={`flex flex-col flex-auto bg-${theme.bg} flex-shrink-0 rounded-2xl h-full `}>
+        <div className={`flex flex-col flex-auto bg-blue-400 h-full`}>
+            <div style={imageStyle} className={`flex flex-col flex-auto bg-${theme.bg} flex-shrink-0  h-full `}>
                 {/*Chat header*/}
                 <div className={`flex bg-${theme.bg} items-center justify-between rounded-2xl p-2`}>
                     <div className="flex  items-center space-x-2">
@@ -169,7 +168,7 @@ const ChattingPage = ({ theme }) => {
                                 onKeyPress={(e) => { sendText(e) }}
                                 value={text}
                                 placeholder='Send Message'
-                                className="flex w-full border text-black rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                                className={`flex w-full border bg-${theme.bg} rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10`}
                             />
                             
                         </div>

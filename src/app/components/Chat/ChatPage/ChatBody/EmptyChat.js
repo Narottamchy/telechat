@@ -9,8 +9,8 @@ const imageStyle = {
 
 const EmptyChat = ({theme}) => {
     return (
-        <div className={`flex flex-col flex-auto bg-blue-400 h-full p-4`}>
-            <div style={imageStyle} className={`flex flex-col flex-auto bg-${theme.bg} rounded-2xl h-full p-4`}>
+        <div className={`flex flex-col flex-auto bg-blue-400 h-full`}>
+            <div style={imageStyle} className={`flex flex-col flex-auto bg-${theme.bg} h-full p-4`}>
             
             </div>
         </div>

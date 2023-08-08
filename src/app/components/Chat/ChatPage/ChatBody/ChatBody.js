@@ -7,7 +7,7 @@ const ChatBody = ({account, message, theme,person}) => {
     <div className="flex items-center justify-start flex-row-reverse">
         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0 overflow-hidden">
         <img
-            src={account.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
+            src={person.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
              alt="Logo"
             className="h-full w-full"
           />
@@ -20,7 +20,7 @@ const ChatBody = ({account, message, theme,person}) => {
     <div className="flex flex-row items-center">
         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0 overflow-hidden">
         <img
-            src={person.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
+            src={account.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
              alt="Logo"
             className="h-full w-full"
           />

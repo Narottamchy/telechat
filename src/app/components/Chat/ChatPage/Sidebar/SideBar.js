@@ -87,10 +87,10 @@ const Sidebar = () => {
       )}
 
       <div
-        className={`top-0 w-64 text-${theme.text} fixed bg-${theme.bg} h-full z-60  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "-translate-x-64"
+        className={`top-0 w-1/4 text-${theme.text} fixed bg-${theme.bg} h-full z-60  ease-in-out duration-300 ${showSidebar ? "translate-x-0 " : "-translate-x-full"
           }`}
       >
-        <div className={`flex flex-col py-8 pl-4 pr-4 w-64 bg-${theme.bg} flex-shrink-0`}>
+        <div className={`flex flex-col py-8 pl-4 pr-4 w-full bg-${theme.bg} flex-shrink-0`}>
           <div className="flex flex-row items-center justify-center h-12 w-full">
             <div className={`flex items-center justify-center rounded-full text-${theme.text} bg-indigo-500 h-10 w-10`}>
 
