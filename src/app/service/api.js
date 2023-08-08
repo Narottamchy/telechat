@@ -13,7 +13,7 @@ export const addUser = async (data) =>{
             body:JSON.stringify(data),
         })
     }catch(error){
-        console.log("error while adduser API",error.message)
+        // console.log("error while adduser API",error.message)
     }
 }
 
@@ -23,7 +23,7 @@ export const getUsers = async () =>{
         let responseJson = await response.json();
         return responseJson;
     }catch(error){
-        console.log("error while calling getUsers API",error.message)
+        // console.log("error while calling getUsers API",error.message)
     }
 }
 
@@ -38,7 +38,7 @@ export const setConversation = async (data) =>{
             body:JSON.stringify(data),
         })
     }catch(error){
-        console.log("error while calling setConversation API",error.message)
+        // console.log("error while calling setConversation API",error.message)
     }
 }
 
@@ -55,7 +55,7 @@ export const getConversation = async (data) => {
         let responseJson = await response.json();
         return responseJson;
     } catch (error) {
-        console.log('Error while calling getConversation API ', error.message);
+        // console.log('Error while calling getConversation API ', error.message);
     }
 }
 export const newMessages = async (data) => {
@@ -69,7 +69,7 @@ export const newMessages = async (data) => {
             body:JSON.stringify(data),
         })
     } catch (error) {
-        console.log('Error while calling newConversations API ', error.message);
+        // console.log('Error while calling newConversations API ', error.message);
     }
 }
 
@@ -79,6 +79,6 @@ export const getMessages = async (id) => {
         let responseJson = await response.json();
         return responseJson;
     } catch (error) {
-        console.log('Error while calling getMessages API ', error.message);
+        // console.log('Error while calling getMessages API ', error.message);
     }
 }

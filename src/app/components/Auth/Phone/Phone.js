@@ -30,7 +30,7 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
         window.confirmationResult = confirmationResult;
       })
       .catch((error) => {
-        console.log(error);
+        // // console.log(error);
       });
   }
 
@@ -38,10 +38,10 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
     window.confirmationResult
       .confirm(otp)
       .then(async (res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }
 
