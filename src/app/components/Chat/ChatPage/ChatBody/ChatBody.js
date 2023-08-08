@@ -9,7 +9,7 @@ const ChatBody = ({account, message, theme,person}) => {
         <img 
              height= "auto"
              width={"100%"}
-            src={person.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
+            src={account.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
              alt="Logo"
             className="h-full w-full"
           />
@@ -21,10 +21,11 @@ const ChatBody = ({account, message, theme,person}) => {
 </div>: <div key={message._id} className="col-start-1 col-end-8 p-3 rounded-lg">
     <div className="flex flex-row items-center">
         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0 overflow-hidden">
-        <img 
+        
+          <img 
              height= "auto"
              width={"100%"}
-            src={account.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
+            src={person.photoURL || "https://cdn-icons-png.flaticon.com/512/3237/3237472.png"}
              alt="Logo"
             className="h-full w-full"
           />
