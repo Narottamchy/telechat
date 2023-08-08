@@ -1,32 +1,46 @@
-import { AuthContext } from '@/app/context/AuthContext'
+import { AuthContext } from '@/app/context/AuthContext';
 import Login from '@/app/login/page';
-import React, {useState, useEffect, useContext} from 'react'
+import React, { useState, useEffect, useContext } from 'react';
 import { auth } from '../firebase/firebase';
 import ChatPage from './ChatPage/ChatPage';
 import Loading from '../Loading/Loading';
-import { addUser } from '@/app/service/api';
-
-
+import { addUser, getUsers } from '@/app/service/api'; // Import getUsers
 
 const ChatUI = () => {
+  const [users, setUsers] = useState([]); // State for users
   const { account, setAccount } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  
+
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setTimeout(()=>{
-        setAccount(user);
-        addUser(user);
+    const fetchData = async (user) => {
+      try {
+          setAccount(user);
+        await addUser(user);
+        
+        let response = await getUsers();
+        setUsers(response);
         setLoading(false);
-      },1000);
-      
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+    auth.onAuthStateChanged((user) => {
+      fetchData(user);
     });
   }, []);
+
   return (
-    <>{loading ? <Loading/> : <>{account ? <ChatPage/> : <Login/>}</>}
-</>
+    <>
+      {loading ? (
+        <Loading /> // Display loading spinner while fetching data
+      ) : (
+        <>
+          {account ? <ChatPage users={users} /> : <Login />}
+        </>
+      )}
+    </>
+  );
+};
 
-  )
-}
-
-export default ChatUI
+export default ChatUI;

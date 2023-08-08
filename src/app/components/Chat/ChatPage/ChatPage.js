@@ -1,35 +1,25 @@
-import React, { useEffect, useContext, useState } from 'react'
-import SideBar from './Sidebar/SideBar'
-import { ThemeContext } from '@/app/context/ThemeContext'
-import { getUsers } from '@/app/service/api'
-import Chats from './Sidebar/Chats'
-import ChattingPage from './ChatBody/ChattingPage'
-import EmptyChat from './ChatBody/EmptyChat'
-import { AuthContext } from '@/app/context/AuthContext'
+import React, { useEffect, useContext, useState } from 'react';
+import SideBar from './Sidebar/SideBar';
+import { ThemeContext } from '@/app/context/ThemeContext';
+import Chats from './Sidebar/Chats';
+import ChattingPage from './ChatBody/ChattingPage';
+import EmptyChat from './ChatBody/EmptyChat';
+import { AuthContext } from '@/app/context/AuthContext';
 
-const ChatPage = () => {
-  const [users, setUsers] = useState([]);
+const ChatPage = ({ users }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const { theme } = useContext(ThemeContext);
-  const { person, account, socket, setActiveUsers} = useContext(AuthContext);
+  const { person, account, socket, setActiveUsers } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      let response = await getUsers();
-      setUsers(response);
-    }
-    fetchData();
-  }, []);
-
-  useEffect(()=>{
-    socket.current.emit('addUsers',account);
-    socket.current.on('getUsers', users =>{
+    socket.current.emit('addUsers', account);
+    socket.current.on('getUsers', (users) => {
       setActiveUsers(users);
-    })
-  },[account])
+    });
+  }, [account]);
 
   // Filter users based on search query
-  const filteredUsers = users.filter(user =>
+  const filteredUsers = users.filter((user) =>
     user.displayName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -64,20 +54,21 @@ const ChatPage = () => {
                   {users.length - 1}
                 </span>
               </div>
-              {/*Users */}
-              <div className="flex flex-col space-y-1 mt-4 -mx-2 h-full overflow-y-auto">
-                {filteredUsers.map((user) => (
-                  <Chats key={user._id} user={user} />
-                ))}
-              </div>
-            </div>
+      {/*Users */}
+      <div className="flex flex-col space-y-1 mt-4 -mx-2 h-full overflow-y-auto">
+        {filteredUsers.map((user) => (
+          <Chats key={user._id} user={user} />
+        ))}
+      </div>
+      </div>
           </div>
           {/*Chatting page */}
           {Object.keys(person).length ? <ChattingPage theme={theme} /> : <EmptyChat theme={theme} />}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default ChatPage
+export default ChatPage;
+
